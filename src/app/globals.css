@@ -1,21 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Ultra-Modern Sleek Palette */
   --primary: #6366F1;
-  /* Indigo Modern */
   --primary-dark: #4F46E5;
   --secondary: #F43F5E;
-  /* Rose / Action */
   --dark-bg: #0F172A;
-  /* Slate 900 */
   --dark-surface: #1E293B;
-  /* Slate 800 */
   --background: #F8FAFF;
   --text: #0F172A;
   --text-muted: #64748B;
   --border: rgba(99, 102, 241, 0.1);
-  --glass: rgba(255, 255, 255, 0.7);
 
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -48,19 +42,12 @@ body {
   padding: 0 20px;
 }
 
-/* New Aesthetic: High Contrast & Sleek */
 .glass-card {
   background: white;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-xl);
-  border-color: var(--primary);
+  transition: all 0.3s ease;
 }
 
 .btn {
@@ -71,6 +58,10 @@ body {
   transition: all 0.2s ease;
   border: none;
   font-family: var(--font-heading);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .btn-primary {
@@ -78,27 +69,45 @@ body {
   color: white;
 }
 
-.btn-primary:hover {
-  background-color: var(--primary-dark);
-  transform: scale(1.02);
-}
-
-/* FIXING MOBILE CLUTTER */
+/* ROBUST GRID SYSTEM FOR COURSE DETAILS */
 .detail-grid {
-  display: grid;
-  grid-template-columns: 1fr 380px;
+  display: flex;
+  flex-direction: row;
   gap: 48px;
-  align-items: start;
+  width: 100%;
 }
 
+.detail-main {
+  flex: 1;
+  min-width: 0;
+  /* Prevents flex items from overflowing */
+}
+
+.detail-sidebar {
+  width: 380px;
+  flex-shrink: 0;
+}
+
+/* MOBILE FORCE STACK */
 @media (max-width: 1024px) {
   .detail-grid {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 32px;
+  }
+
+  .detail-sidebar {
+    width: 100%;
+    order: 2;
+    /* Forces sidebar to the bottom */
+  }
+
+  .detail-main {
+    width: 100%;
+    order: 1;
   }
 }
 
-/* Sticky Mobile Action Bar */
+/* Mobile Action Bar (Sticky at bottom for conversion) */
 .mobile-action-bar {
   display: none;
   position: fixed;
@@ -119,12 +128,9 @@ body {
     align-items: center;
   }
 
-  .hide-on-mobile {
+  /* We don't hide the sidebar anymore, just stack it at bottom */
+  .hide-on-mobile-only {
     display: none !important;
-  }
-
-  .full-width-mobile {
-    width: 100% !important;
   }
 }
 
