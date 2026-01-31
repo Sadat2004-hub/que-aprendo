@@ -4,27 +4,21 @@ import { Course } from '@/lib/data';
 export default function CourseCard({ course }: { course: Course }) {
     return (
         <Link href={`/${course.municipio}/${course.category}/${course.slug}`} style={styles.card} className="glass-card">
-            <div style={styles.imageContainer}>
+            <div style={styles.imageBox}>
                 <img src={course.image} alt={course.title} style={styles.image} />
-                <div style={styles.overlay}>
-                    <span className="badge-tech" style={styles.modality}>{course.modality}</span>
-                </div>
+                <span style={styles.badge}>{course.modality}</span>
             </div>
             <div style={styles.body}>
-                <div style={styles.meta}>
-                    <span style={styles.category}>{course.category}</span>
-                    <span style={styles.rating}>★ 4.9</span>
-                </div>
+                <span style={styles.category}>{course.category}</span>
                 <h3 style={styles.title}>{course.title}</h3>
-                <p style={styles.instructor}>por {course.instructor}</p>
+                <p style={styles.instructor}>por <strong>{course.instructor}</strong></p>
+
                 <div style={styles.footer}>
                     <div style={styles.priceContainer}>
                         <span style={styles.price}>${course.price.toLocaleString()}</span>
-                        <span style={styles.currency}>{course.currency}</span>
+                        <span style={styles.currency}>MXN</span>
                     </div>
-                    <div style={styles.arrowContainer}>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </div>
+                    <div style={styles.rating}>⭐ 4.9</div>
                 </div>
             </div>
         </Link>
@@ -33,35 +27,32 @@ export default function CourseCard({ course }: { course: Course }) {
 
 const styles: { [key: string]: React.CSSProperties } = {
     card: {
-        borderRadius: 'var(--radius-md)',
-        overflow: 'hidden',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
+        overflow: 'hidden',
         backgroundColor: 'white',
     },
-    imageContainer: {
+    imageBox: {
         position: 'relative',
-        height: '220px',
+        height: '240px',
         overflow: 'hidden',
     },
     image: {
         width: '100%',
         height: '100%',
         objectFit: 'cover',
-        transition: 'transform 0.6s ease',
     },
-    overlay: {
+    badge: {
         position: 'absolute',
         top: '16px',
-        left: '16px',
-        zIndex: 10,
-    },
-    modality: {
-        backgroundColor: 'rgba(255,255,255,0.95)',
-        backdropFilter: 'blur(4px)',
-        border: 'none',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+        right: '16px',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+        color: 'var(--text)',
+        padding: '4px 12px',
+        borderRadius: '8px',
+        fontSize: '0.75rem',
+        fontWeight: 700,
     },
     body: {
         padding: '24px',
@@ -69,30 +60,23 @@ const styles: { [key: string]: React.CSSProperties } = {
         display: 'flex',
         flexDirection: 'column',
     },
-    meta: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '12px',
-    },
     category: {
         fontSize: '0.75rem',
         fontWeight: 800,
-        textTransform: 'uppercase',
         color: 'var(--primary)',
-        letterSpacing: '0.05em',
-    },
-    rating: {
-        fontSize: '0.85rem',
-        fontWeight: 700,
-        color: '#F59E0B',
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        marginBottom: '8px',
     },
     title: {
         fontSize: '1.25rem',
         lineHeight: '1.4',
-        marginBottom: '10px',
-        color: 'var(--text)',
-        height: '2.8em',
+        marginBottom: '12px',
+        color: 'var(--dark-bg)',
+        fontWeight: 700,
+        display: '-webkit-box',
+        WebkitLineClamp: '2',
+        WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
     },
     instructor: {
@@ -105,8 +89,8 @@ const styles: { [key: string]: React.CSSProperties } = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '16px',
-        borderTop: '1px solid var(--border)',
+        paddingTop: '20px',
+        borderTop: '1px solid #f0f0f0',
     },
     priceContainer: {
         display: 'flex',
@@ -122,15 +106,8 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: '0.8rem',
         color: 'var(--text-muted)',
     },
-    arrowContainer: {
-        width: '40px',
-        height: '40px',
-        borderRadius: '50%',
-        backgroundColor: 'var(--background)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        color: 'var(--primary)',
-        transition: 'var(--transition)',
+    rating: {
+        fontSize: '0.9rem',
+        fontWeight: 700,
     }
 };

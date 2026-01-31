@@ -7,59 +7,45 @@ export default function Home() {
   const featuredCourses = COURSES.slice(0, 4);
 
   return (
-    <div style={styles.wrapper}>
-      {/* Hero Section - Futuristic & Minimal */}
+    <div className="hero-gradient">
+      {/* Dynamic Hero Section */}
       <section style={styles.hero}>
         <div className="container" style={styles.heroContainer}>
-          <div style={styles.heroContent} className="animate-up">
-            <span className="badge-tech" style={{ marginBottom: '24px', display: 'inline-block' }}>
-              Nueva forma de aprender en Oaxaca
-            </span>
+          <div className="animate-fade-in">
             <h1 style={styles.heroTitle}>
-              Desbloquea tu <span style={styles.gradientText}>Potencial</span> Técnico y Humano
+              Encuentra a tu <span style={{ color: 'var(--primary)' }}>Próximo Maestro</span> en Oaxaca
             </h1>
             <p style={styles.heroSubtitle}>
-              La plataforma definitiva para conectar con expertos locales. Cursos de alta calidad, contacto directo y aprendizaje real.
+              Cursos presenciales y online impartidos por los mejores expertos de la región. Aprende lo que te apasiona hoy mismo.
             </p>
             <div style={styles.heroSearch}>
               <SearchBar prominent={true} />
-            </div>
-            <div style={styles.trustStrip}>
-              <span style={styles.trustItem}>✓ +50 Instructores</span>
-              <span style={styles.trustItem}>✓ Contacto Directo</span>
-              <span style={styles.trustItem}>✓ Garantía queaprendo</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Categories Horizontal Scroll or Grid */}
-      <section style={styles.categoriesSection}>
+      {/* Categories Modern Grid */}
+      <section style={styles.section}>
         <div className="container">
-          <div style={styles.sectionHeader}>
-            <h2 style={styles.sectionTitle}>Explora por Categoría</h2>
-          </div>
+          <h2 style={styles.sectionTitle}>Categorías Populares</h2>
           <div style={styles.categoryGrid}>
             {CATEGORIES.map((cat) => (
               <Link key={cat.id} href={`/oaxaca/${cat.id}`} style={styles.categoryCard} className="glass-card">
-                <div style={styles.catIconWrapper}>{cat.icon}</div>
+                <span style={styles.catIcon}>{cat.icon}</span>
                 <span style={styles.catName}>{cat.name}</span>
-                <span style={styles.catCount}>Ver cursos →</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Courses - Grid with dynamic feel */}
-      <section style={styles.featuredSection}>
+      {/* Featured Courses - Premium Look */}
+      <section style={{ ...styles.section, backgroundColor: 'white' }}>
         <div className="container">
           <div style={styles.sectionHeader}>
-            <div>
-              <h2 style={styles.sectionTitle}>Cursos Destacados</h2>
-              <p style={{ color: 'var(--text-muted)' }}>Selección de los talleres más populares del mes.</p>
-            </div>
-            <Link href="/oaxaca" className="btn btn-ghost" style={{ borderRadius: 'var(--radius-md)' }}>Explorar todo</Link>
+            <h2 style={styles.sectionTitle}>Cursos Destacados</h2>
+            <Link href="/oaxaca" style={styles.viewAll}>Explorar todo →</Link>
           </div>
           <div style={styles.courseGrid}>
             {featuredCourses.map((course) => (
@@ -69,27 +55,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Modern CTA Section */}
-      <section style={styles.ctaSection}>
+      {/* Trust & CTA */}
+      <section style={styles.section}>
         <div className="container">
-          <div style={styles.ctaCard} className="animate-up">
+          <div style={styles.ctaBox} className="glass-card">
             <div style={styles.ctaText}>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', color: 'white' }}>¿Tienes algo que enseñar?</h2>
-              <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.8)', marginBottom: '40px' }}>
-                Únete a la mayor red educativa de Oaxaca. Digitalizamos tu talento y te conectamos con alumnos listos para aprender.
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>¿Eres instructor?</h2>
+              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '32px' }}>
+                Únete a la mayor red educativa de Oaxaca. Te ayudamos a gestionar tus alumnos y digitalizar tu oferta.
               </p>
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                <Link href="/unirse" className="btn btn-primary" style={{ backgroundColor: 'white', color: 'var(--primary)', boxShadow: 'none' }}>
-                  Empezar ahora
-                </Link>
-                <Link href="/unirse" className="btn btn-ghost" style={{ borderColor: 'white', color: 'white' }}>
-                  Más información
-                </Link>
-              </div>
+              <Link href="/unirse" className="btn btn-primary">Registrar mi taller</Link>
             </div>
-            <div style={styles.ctaImage}>
-              {/* Visual element placeholder */}
-              <div style={styles.abstractGraphic}></div>
+            <div className="hide-on-mobile" style={styles.ctaImage}>
+              <img src="https://images.unsplash.com/photo-1544928147-7972fc535992?auto=format&fit=crop&q=80&w=800" alt="Teacher" style={{ width: '100%', borderRadius: '20px' }} />
             </div>
           </div>
         </div>
@@ -99,138 +77,82 @@ export default function Home() {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  wrapper: {
-    backgroundColor: 'var(--background)',
-  },
   hero: {
-    padding: '120px 0 100px',
-    background: 'radial-gradient(circle at top right, rgba(45, 91, 255, 0.08), transparent 400px), radial-gradient(circle at bottom left, rgba(255, 92, 0, 0.05), transparent 400px)',
+    padding: '100px 0 80px',
+    textAlign: 'center',
   },
   heroContainer: {
-    textAlign: 'center',
-    maxWidth: '1000px',
-  },
-  heroContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    maxWidth: '900px',
+    margin: '0 auto',
   },
   heroTitle: {
     fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
-    lineHeight: '1.05',
-    color: 'var(--dark)',
-    marginBottom: '24px',
-    maxWidth: '900px',
-  },
-  gradientText: {
-    background: 'linear-gradient(135deg, var(--primary), var(--secondary))',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    lineHeight: '1.1',
     fontWeight: 800,
+    marginBottom: '24px',
+    color: 'var(--dark-bg)',
   },
   heroSubtitle: {
-    fontSize: 'clamp(1rem, 3vw, 1.35rem)',
+    fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
     color: 'var(--text-muted)',
-    maxWidth: '650px',
     marginBottom: '48px',
   },
   heroSearch: {
-    width: '100%',
-    maxWidth: '750px',
+    maxWidth: '700px',
+    margin: '0 auto',
+  },
+  section: {
+    padding: '100px 0',
+  },
+  sectionTitle: {
+    fontSize: '2.2rem',
     marginBottom: '40px',
-  },
-  trustStrip: {
-    display: 'flex',
-    gap: '32px',
-    color: 'var(--text)',
-    fontSize: '0.9rem',
-    fontWeight: 600,
-    opacity: 0.8,
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  categoriesSection: {
-    padding: '80px 0',
+    color: 'var(--dark-bg)',
   },
   sectionHeader: {
     display: 'flex',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    marginBottom: '48px',
+    alignItems: 'baseline',
+    marginBottom: '40px',
   },
-  sectionTitle: {
-    fontSize: '2.5rem',
-    color: 'var(--dark)',
+  viewAll: {
+    color: 'var(--primary)',
+    fontWeight: 700,
   },
   categoryGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
     gap: '24px',
   },
   categoryCard: {
-    padding: '40px 32px',
-    borderRadius: '24px',
-    textAlign: 'left',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '16px',
+    padding: '40px 20px',
+    textAlign: 'center',
+    cursor: 'pointer',
     backgroundColor: 'white',
-    height: '240px',
-    justifyContent: 'center',
   },
-  catIconWrapper: {
+  catIcon: {
     fontSize: '3rem',
-    marginBottom: '12px',
+    display: 'block',
+    marginBottom: '16px',
   },
   catName: {
-    fontSize: '1.5rem',
+    fontSize: '1.1rem',
     fontWeight: 700,
-    color: 'var(--dark)',
-  },
-  catCount: {
-    fontSize: '0.9rem',
-    fontWeight: 600,
-    color: 'var(--primary)',
-  },
-  featuredSection: {
-    padding: '100px 0',
-    backgroundColor: 'rgba(45, 91, 255, 0.02)',
+    color: 'var(--dark-bg)',
   },
   courseGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-    gap: '32px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '30px',
   },
-  ctaSection: {
-    padding: '120px 0',
-  },
-  ctaCard: {
-    background: 'var(--dark)',
-    borderRadius: '40px',
-    padding: '80px',
+  ctaBox: {
     display: 'grid',
     gridTemplateColumns: '1.2fr 1fr',
-    gap: '40px',
-    overflow: 'hidden',
-    position: 'relative',
-    boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
+    gap: '60px',
+    padding: '80px',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
-  ctaText: {
-    zIndex: 2,
-  },
-  ctaImage: {
-    position: 'relative',
-    zIndex: 1,
-  },
-  abstractGraphic: {
-    width: '100%',
-    height: '100%',
-    background: 'linear-gradient(135deg, var(--primary), transparent)',
-    borderRadius: '50%',
-    filter: 'blur(80px)',
-    opacity: 0.4,
-    position: 'absolute',
-    top: '20%',
-    right: '-20%',
-  }
+  ctaText: {},
+  ctaImage: {},
 };

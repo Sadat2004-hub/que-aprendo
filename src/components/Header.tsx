@@ -3,23 +3,22 @@ import SearchBar from './SearchBar';
 
 export default function Header() {
     return (
-        <header style={styles.header} className="glass-nav">
+        <header style={styles.header}>
             <div className="container" style={styles.container}>
                 <Link href="/" style={styles.logo}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '8px' }}>
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
                     que<span style={{ color: 'var(--primary)', fontWeight: 800 }}>aprendo</span>
-                    <div style={styles.logoDot}></div>
                 </Link>
 
-                <div style={styles.searchWrapper}>
+                <div className="hide-on-mobile" style={styles.searchWrapper}>
                     <SearchBar />
                 </div>
 
                 <nav style={styles.nav}>
-                    <Link href="/unirse" className="btn btn-ghost" style={styles.navLink}>
-                        Enseñar
-                    </Link>
-                    <Link href="/login" style={styles.loginLink}>
-                        Entrar
+                    <Link href="/unirse" className="btn btn-primary" style={styles.navBtn}>
+                        Dar Clases
                     </Link>
                 </nav>
             </div>
@@ -35,48 +34,37 @@ const styles: { [key: string]: React.CSSProperties } = {
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
-        transition: 'var(--transition)',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backdropFilter: 'blur(10px)',
+        borderBottom: '1px solid var(--border)',
     },
     container: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        gap: '40px',
     },
     logo: {
-        fontSize: '1.6rem',
-        fontWeight: 600,
+        fontSize: '1.4rem',
+        fontWeight: 700,
         display: 'flex',
         alignItems: 'center',
-        position: 'relative',
-        color: 'var(--text)',
-    },
-    logoDot: {
-        width: '6px',
-        height: '6px',
-        backgroundColor: 'var(--secondary)',
-        borderRadius: '50%',
-        marginLeft: '2px',
-        marginTop: '12px',
+        color: 'var(--dark-bg)',
+        letterSpacing: '-0.5px',
     },
     searchWrapper: {
         flex: 1,
-        maxWidth: '500px',
-        display: 'none', // Hide on mobile in JS, use media query logic
+        maxWidth: '450px',
+        margin: '0 40px',
     },
     nav: {
         display: 'flex',
         alignItems: 'center',
-        gap: '24px',
+        gap: '20px',
     },
-    navLink: {
+    navBtn: {
         padding: '10px 24px',
         fontSize: '0.9rem',
-    },
-    loginLink: {
-        fontWeight: 600,
-        fontSize: '0.95rem',
-        color: 'var(--text)',
+        boxShadow: '0 4px 14px 0 rgba(99, 102, 241, 0.39)',
     }
 };
