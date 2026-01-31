@@ -10,7 +10,6 @@ export default function SearchBar({ prominent = false }: { prominent?: boolean }
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         if (query.trim()) {
-            // For now, redirect to a search page or back to home with query
             router.push(`/search?q=${encodeURIComponent(query)}`);
         }
     };
@@ -18,17 +17,19 @@ export default function SearchBar({ prominent = false }: { prominent?: boolean }
     return (
         <form onSubmit={handleSearch} style={prominent ? styles.formProminent : styles.form}>
             <div style={styles.inputWrapper}>
-                <span style={styles.icon}>🔍</span>
+                <span style={styles.icon}>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </span>
                 <input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    placeholder="¿Qué quieres aprender hoy? Ej. Inglés, Cocina, Excel..."
+                    placeholder="¿Qué quieres aprender hoy? Ej. Inglés, Cocina..."
                     style={prominent ? styles.inputProminent : styles.input}
                 />
             </div>
             <button type="submit" className="btn btn-primary" style={prominent ? styles.buttonProminent : styles.button}>
-                {prominent ? 'Buscar cursos' : 'Buscar'}
+                {prominent ? 'Buscar ahora' : '🔍'}
             </button>
         </form>
     );
@@ -37,18 +38,23 @@ export default function SearchBar({ prominent = false }: { prominent?: boolean }
 const styles: { [key: string]: React.CSSProperties } = {
     form: {
         display: 'flex',
-        gap: '8px',
+        gap: '4px',
         width: '100%',
+        backgroundColor: 'var(--background)',
+        padding: '4px',
+        borderRadius: 'var(--radius-full)',
+        border: '1.5px solid var(--border)',
+        transition: 'var(--transition)',
     },
     formProminent: {
         display: 'flex',
-        flexDirection: 'row',
-        gap: '0',
+        gap: '8px',
         width: '100%',
+        backgroundColor: 'white',
+        padding: '12px',
+        borderRadius: 'var(--radius-full)',
         boxShadow: 'var(--shadow-lg)',
-        borderRadius: 'var(--radius-lg)',
-        overflow: 'hidden',
-        backgroundColor: 'var(--white)',
+        border: '1px solid rgba(0,0,0,0.05)',
     },
     inputWrapper: {
         position: 'relative',
@@ -58,30 +64,39 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     icon: {
         position: 'absolute',
-        left: '16px',
-        color: 'var(--muted)',
+        left: '20px',
+        color: 'var(--primary)',
+        display: 'flex',
+        alignItems: 'center',
     },
     input: {
         width: '100%',
-        padding: '10px 12px 10px 40px',
-        borderRadius: 'var(--radius-md)',
-        border: '1px solid var(--border)',
+        padding: '12px 12px 12px 52px',
+        borderRadius: 'var(--radius-full)',
+        border: 'none',
         fontSize: '0.9rem',
         outline: 'none',
+        backgroundColor: 'transparent',
+        fontFamily: 'inherit',
     },
     inputProminent: {
         width: '100%',
-        padding: '20px 20px 20px 50px',
+        padding: '16px 16px 16px 60px',
         border: 'none',
-        fontSize: '1.1rem',
+        fontSize: '1.15rem',
         outline: 'none',
+        backgroundColor: 'transparent',
+        fontFamily: 'inherit',
+        fontWeight: 500,
     },
     button: {
-        padding: '8px 20px',
+        borderRadius: 'var(--radius-full)',
+        padding: '0 16px',
+        height: '44px',
     },
     buttonProminent: {
-        borderRadius: '0',
         padding: '0 40px',
         fontSize: '1.1rem',
+        height: '60px',
     }
 };

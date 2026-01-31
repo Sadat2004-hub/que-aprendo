@@ -3,22 +3,27 @@ import { Course } from '@/lib/data';
 
 export default function CourseCard({ course }: { course: Course }) {
     return (
-        <Link href={`/${course.municipio}/${course.category}/${course.slug}`} style={styles.card}>
-            <div style={styles.imageWrapper}>
+        <Link href={`/${course.municipio}/${course.category}/${course.slug}`} style={styles.card} className="glass-card">
+            <div style={styles.imageContainer}>
                 <img src={course.image} alt={course.title} style={styles.image} />
-                <span style={styles.badge}>{course.modality}</span>
+                <div style={styles.overlay}>
+                    <span className="badge-tech" style={styles.modality}>{course.modality}</span>
+                </div>
             </div>
-            <div style={styles.content}>
-                <span style={styles.category}>{course.category.charAt(0).toUpperCase() + course.category.slice(1)}</span>
+            <div style={styles.body}>
+                <div style={styles.meta}>
+                    <span style={styles.category}>{course.category}</span>
+                    <span style={styles.rating}>★ 4.9</span>
+                </div>
                 <h3 style={styles.title}>{course.title}</h3>
-                <p style={styles.instructor}>Por {course.instructor}</p>
+                <p style={styles.instructor}>por {course.instructor}</p>
                 <div style={styles.footer}>
                     <div style={styles.priceContainer}>
                         <span style={styles.price}>${course.price.toLocaleString()}</span>
                         <span style={styles.currency}>{course.currency}</span>
                     </div>
-                    <div style={styles.rating}>
-                        ⭐️ {course.reviews.length > 0 ? (course.reviews.reduce((acc, r) => acc + r.rating, 0) / course.reviews.length).toFixed(1) : 'Nuevo'}
+                    <div style={styles.arrowContainer}>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </div>
                 </div>
             </div>
@@ -28,70 +33,79 @@ export default function CourseCard({ course }: { course: Course }) {
 
 const styles: { [key: string]: React.CSSProperties } = {
     card: {
-        backgroundColor: 'var(--white)',
-        borderRadius: 'var(--radius-lg)',
+        borderRadius: 'var(--radius-md)',
         overflow: 'hidden',
-        boxShadow: 'var(--shadow-sm)',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'transform 0.3s ease, boxShadow 0.3s ease',
+        height: '100%',
+        backgroundColor: 'white',
     },
-    imageWrapper: {
+    imageContainer: {
         position: 'relative',
-        height: '180px',
-        width: '100%',
+        height: '220px',
+        overflow: 'hidden',
     },
     image: {
         width: '100%',
         height: '100%',
         objectFit: 'cover',
+        transition: 'transform 0.6s ease',
     },
-    badge: {
+    overlay: {
         position: 'absolute',
-        top: '12px',
-        right: '12px',
-        backgroundColor: 'rgba(0,0,0,0.6)',
-        color: 'white',
-        padding: '4px 10px',
-        borderRadius: '20px',
-        fontSize: '0.75rem',
-        fontWeight: 600,
-        textTransform: 'uppercase',
+        top: '16px',
+        left: '16px',
+        zIndex: 10,
     },
-    content: {
-        padding: '1.25rem',
+    modality: {
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        backdropFilter: 'blur(4px)',
+        border: 'none',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+    },
+    body: {
+        padding: '24px',
+        flex: 1,
         display: 'flex',
         flexDirection: 'column',
-        flex: 1,
+    },
+    meta: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '12px',
     },
     category: {
         fontSize: '0.75rem',
-        fontWeight: 700,
-        color: 'var(--secondary)',
+        fontWeight: 800,
         textTransform: 'uppercase',
-        marginBottom: '0.5rem',
+        color: 'var(--primary)',
+        letterSpacing: '0.05em',
+    },
+    rating: {
+        fontSize: '0.85rem',
+        fontWeight: 700,
+        color: '#F59E0B',
     },
     title: {
-        fontSize: '1.1rem',
-        marginBottom: '0.5rem',
-        color: 'var(--foreground)',
-        display: '-webkit-box',
-        WebkitLineClamp: '2',
-        WebkitBoxOrient: 'vertical',
+        fontSize: '1.25rem',
+        lineHeight: '1.4',
+        marginBottom: '10px',
+        color: 'var(--text)',
+        height: '2.8em',
         overflow: 'hidden',
-        minHeight: '2.6rem',
     },
     instructor: {
-        fontSize: '0.85rem',
-        color: 'var(--muted)',
-        marginBottom: '1rem',
+        fontSize: '0.9rem',
+        color: 'var(--text-muted)',
+        marginBottom: '20px',
     },
     footer: {
         marginTop: 'auto',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingTop: '1rem',
+        paddingTop: '16px',
         borderTop: '1px solid var(--border)',
     },
     priceContainer: {
@@ -100,17 +114,23 @@ const styles: { [key: string]: React.CSSProperties } = {
         gap: '4px',
     },
     price: {
-        fontSize: '1.25rem',
+        fontSize: '1.4rem',
         fontWeight: 800,
-        color: 'var(--primary)',
+        color: 'var(--text)',
     },
     currency: {
-        fontSize: '0.75rem',
-        color: 'var(--muted)',
+        fontSize: '0.8rem',
+        color: 'var(--text-muted)',
     },
-    rating: {
-        fontSize: '0.9rem',
-        fontWeight: 600,
-        color: '#F59E0B',
+    arrowContainer: {
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        backgroundColor: 'var(--background)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'var(--primary)',
+        transition: 'var(--transition)',
     }
 };

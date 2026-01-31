@@ -3,20 +3,23 @@ import SearchBar from './SearchBar';
 
 export default function Header() {
     return (
-        <header style={styles.header}>
+        <header style={styles.header} className="glass-nav">
             <div className="container" style={styles.container}>
                 <Link href="/" style={styles.logo}>
-                    que<span style={{ fontWeight: 800 }}>aprendo</span>
-                    <span style={styles.logoDetail}>.</span>
+                    que<span style={{ color: 'var(--primary)', fontWeight: 800 }}>aprendo</span>
+                    <div style={styles.logoDot}></div>
                 </Link>
 
-                <div style={styles.searchContainer}>
+                <div style={styles.searchWrapper}>
                     <SearchBar />
                 </div>
 
                 <nav style={styles.nav}>
-                    <Link href="/unirse" className="btn btn-outline" style={styles.cta}>
-                        Soy Instructor/Escuela
+                    <Link href="/unirse" className="btn btn-ghost" style={styles.navLink}>
+                        Enseñar
+                    </Link>
+                    <Link href="/login" style={styles.loginLink}>
+                        Entrar
                     </Link>
                 </nav>
             </div>
@@ -27,45 +30,53 @@ export default function Header() {
 const styles: { [key: string]: React.CSSProperties } = {
     header: {
         height: 'var(--header-height)',
-        backgroundColor: 'var(--white)',
-        borderBottom: '1px solid var(--border)',
         position: 'sticky',
         top: 0,
         zIndex: 1000,
         display: 'flex',
         alignItems: 'center',
+        transition: 'var(--transition)',
     },
     container: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        gap: '2rem',
+        gap: '40px',
     },
     logo: {
-        fontSize: '1.5rem',
-        color: 'var(--primary)',
+        fontSize: '1.6rem',
         fontWeight: 600,
-        letterSpacing: '-0.5px',
         display: 'flex',
         alignItems: 'center',
+        position: 'relative',
+        color: 'var(--text)',
     },
-    logoDetail: {
-        color: 'var(--secondary)',
-        marginLeft: '1px',
-        fontSize: '2rem',
-        lineHeight: 0,
-        marginBottom: '8px',
+    logoDot: {
+        width: '6px',
+        height: '6px',
+        backgroundColor: 'var(--secondary)',
+        borderRadius: '50%',
+        marginLeft: '2px',
+        marginTop: '12px',
     },
-    searchContainer: {
+    searchWrapper: {
         flex: 1,
-        maxWidth: '600px',
+        maxWidth: '500px',
+        display: 'none', // Hide on mobile in JS, use media query logic
     },
     nav: {
         display: 'flex',
         alignItems: 'center',
+        gap: '24px',
     },
-    cta: {
-        whiteSpace: 'nowrap',
+    navLink: {
+        padding: '10px 24px',
+        fontSize: '0.9rem',
+    },
+    loginLink: {
+        fontWeight: 600,
+        fontSize: '0.95rem',
+        color: 'var(--text)',
     }
 };
