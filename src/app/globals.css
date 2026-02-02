@@ -96,6 +96,7 @@ ul {
   font-weight: 600;
   transition: transform 0.2s ease, background-color 0.2s ease;
   font-size: 1rem;
+  text-align: center;
 }
 
 .btn:active {
@@ -131,17 +132,48 @@ ul {
   color: var(--white);
 }
 
-/* SEO Friendly Utilities */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
+/* Page Layout Utilities */
+.detail-grid {
+  display: flex;
+  gap: 40px;
+  flex-direction: row;
+}
+
+.detail-main {
+  flex: 2;
+  min-width: 0;
+}
+
+.detail-sidebar {
+  flex: 1;
+  min-width: 300px;
+}
+
+.hide-mobile {
+  display: block;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .detail-grid {
+    flex-direction: column;
+  }
+
+  .detail-sidebar {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: block !important;
+  }
 }
 
 /* Animations */
@@ -159,31 +191,4 @@ ul {
 
 .fade-in {
   animation: fadeIn 0.5s ease forwards;
-}
-
-/* Fix for detail grid stack in mobile */
-.detail-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 40px;
-}
-
-@media (max-width: 900px) {
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .hide-mobile {
-    display: none !important;
-  }
-
-  .show-mobile {
-    display: block !important;
-  }
-}
-
-@media (min-width: 901px) {
-  .show-mobile {
-    display: none !important;
-  }
 }

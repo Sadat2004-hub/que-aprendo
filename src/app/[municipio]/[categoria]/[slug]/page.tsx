@@ -40,48 +40,29 @@ export default async function CourseDetailPage({ params }: Props) {
         notFound();
     }
 
-    // Structured Data (JSON-LD)
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": "Course",
-        "name": course.title,
-        "description": course.description,
-        "provider": {
-            "@type": "EducationalOrganization",
-            "name": course.instructor,
-            "url": `https://queaprendo.com/${municipio}/${categoria}/${slug}`
-        },
-        "offers": {
-            "@type": "Offer",
-            "price": course.price,
-            "priceCurrency": course.currency,
-            "availability": "https://schema.org/InStock"
-        },
-        "hasCourseInstance": {
-            "@type": "CourseInstance",
-            "courseMode": course.modality,
-            "location": {
-                "@type": "Place",
-                "name": course.location,
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressLocality": course.municipio,
-                    "addressRegion": "Oaxaca",
-                    "addressCountry": "MX"
-                }
-            }
-        }
-    };
-
     const relatedCourses = COURSES.filter(c => c.category === course.category && c.id !== course.id).slice(0, 3);
 
-    return (
-        <div style={styles.container}>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
+    const PriceAction = () => (
+        <div style={styles.priceCard}>
+            <div style={styles.priceHeader}>
+                <span style={styles.price}>${course.price.toLocaleString()}</span>
+                <span style={styles.currency}>{course.currency}</span>
+            </div>
+            <a
+                href={`https://wa.me/526563230397?text=Hola,%20me%20interesa%20inscribirme%20al%20curso%20${encodeURIComponent(course.title)}`}
+                className="btn btn-secondary"
+                style={styles.buyBtn}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Inscribirse ahora
+            </a>
+            <p style={styles.guarantee}>Garantía de satisfacción queaprendo</p>
+        </div>
+    );
 
+    return (
+        <div style={styles.pageContainer}>
             <div className="container">
                 <nav style={styles.breadcrumb}>
                     <Link href="/">Inicio</Link> /
@@ -90,8 +71,9 @@ export default async function CourseDetailPage({ params }: Props) {
                     <span> {course.title} </span>
                 </nav>
 
-                <div style={styles.contentGrid}>
-                    <div style={styles.mainContent}>
+                <div className="detail-grid">
+                    {/* Main Content Area */}
+                    <div className="detail-main">
                         <div style={styles.imageWrapper}>
                             <img src={course.image} alt={course.title} style={styles.mainImage} />
                         </div>
@@ -99,6 +81,11 @@ export default async function CourseDetailPage({ params }: Props) {
                         <div style={styles.headerInfo}>
                             <h1 style={styles.title}>{course.title}</h1>
                             <p style={styles.instructor}>Por <strong>{course.instructor}</strong></p>
+                        </div>
+
+                        {/* Price/Action - ONLY VISIBLE ON MOBILE IN THIS POSITION */}
+                        <div className="show-mobile" style={{ marginBottom: '30px' }}>
+                            <PriceAction />
                         </div>
 
                         <div style={styles.details}>
@@ -119,9 +106,8 @@ export default async function CourseDetailPage({ params }: Props) {
 
                             <h2 style={styles.sectionTitle}>Ubicación</h2>
                             <div style={styles.mapPlaceholder}>
-                                <p>Google Maps: {course.location}</p>
-                                <div style={{ width: '100%', height: '300px', backgroundColor: '#eee', display: 'flex', alignItems: 'center', justifyItems: 'center', justifyContent: 'center', borderRadius: '8px' }}>
-                                    <span style={{ color: '#888' }}>[Mapa Interactivo de {course.location}]</span>
+                                <div style={{ width: '100%', height: '300px', backgroundColor: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', border: '1px solid var(--border)' }}>
+                                    <span style={{ color: '#888' }}>[Mapa de {course.location}]</span>
                                 </div>
                             </div>
 
@@ -144,33 +130,31 @@ export default async function CourseDetailPage({ params }: Props) {
                         </div>
                     </div>
 
-                    <aside style={styles.sidebar}>
-                        <div style={styles.priceCard}>
-                            <div style={styles.priceHeader}>
-                                <span style={styles.price}>${course.price.toLocaleString()}</span>
-                                <span style={styles.currency}>{course.currency}</span>
-                            </div>
-                            <a
-                                href={`https://wa.me/526563230397?text=Hola,%20me%20interesa%20inscribirme%20al%20curso%20${encodeURIComponent(course.title)}`}
-                                className="btn btn-secondary"
-                                style={styles.buyBtn}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Inscribirse ahora
-                            </a>
-                            <p style={styles.guarantee}>Garantía de satisfacción queaprendo</p>
-                        </div>
+                    {/* Sidebar Area - HIDDEN ON MOBILE */}
+                    <aside className="detail-sidebar hide-mobile">
+                        <div style={styles.stickySidebar}>
+                            <PriceAction />
 
-                        <div style={styles.related}>
-                            <h3 style={{ marginBottom: '15px' }}>Cursos similares</h3>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                                {relatedCourses.map(c => (
-                                    <CourseCard key={c.id} course={c} />
-                                ))}
+                            <div style={styles.relatedSection}>
+                                <h3 style={{ marginBottom: '20px' }}>Talleres recomendados</h3>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                    {relatedCourses.map(c => (
+                                        <CourseCard key={c.id} course={c} />
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </aside>
+
+                    {/* Related Section for Mobile (stacks below everything) */}
+                    <div className="show-mobile" style={{ marginTop: '60px' }}>
+                        <h2 style={styles.sectionTitle}>Más talleres en {municipio}</h2>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '30px', marginTop: '24px' }}>
+                            {relatedCourses.map(c => (
+                                <CourseCard key={c.id} course={c} />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -180,29 +164,26 @@ export default async function CourseDetailPage({ params }: Props) {
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-    container: {
-        padding: '40px 0 80px',
+    pageContainer: {
+        padding: '40px 0 100px',
     },
     breadcrumb: {
         marginBottom: '30px',
         fontSize: '0.9rem',
         color: 'var(--muted)',
     },
-    contentGrid: {
-        display: 'grid',
-        gridTemplateColumns: 'minmax(0, 2fr) 1fr',
-        gap: '40px',
-    },
-    mainContent: {},
     imageWrapper: {
         borderRadius: 'var(--radius-lg)',
         overflow: 'hidden',
         marginBottom: '30px',
         boxShadow: 'var(--shadow-md)',
+        backgroundColor: '#fff',
     },
     mainImage: {
         width: '100%',
-        height: '400px',
+        height: 'auto',
+        maxHeight: '450px',
+        display: 'block',
         objectFit: 'cover',
     },
     headerInfo: {
@@ -212,6 +193,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: '2.5rem',
         marginBottom: '10px',
         lineHeight: '1.2',
+        color: 'var(--foreground)',
     },
     instructor: {
         fontSize: '1.2rem',
@@ -220,7 +202,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     details: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px',
+        gap: '40px',
     },
     sectionTitle: {
         fontSize: '1.5rem',
@@ -231,16 +213,18 @@ const styles: { [key: string]: React.CSSProperties } = {
     },
     description: {
         fontSize: '1.1rem',
-        lineHeight: '1.6',
+        lineHeight: '1.7',
+        color: '#333',
     },
     infoBoard: {
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
         gap: '20px',
-        padding: '25px',
+        padding: '30px',
         backgroundColor: 'var(--white)',
         borderRadius: 'var(--radius-md)',
         border: '1px solid var(--border)',
+        boxShadow: 'var(--shadow-sm)',
     },
     infoItem: {
         fontSize: '1rem',
@@ -248,32 +232,33 @@ const styles: { [key: string]: React.CSSProperties } = {
     reviewsList: {
         display: 'flex',
         flexDirection: 'column',
-        gap: '15px',
+        gap: '20px',
     },
     reviewCard: {
-        padding: '20px',
+        padding: '24px',
         backgroundColor: '#fff',
-        borderRadius: '8px',
-        border: '1px solid #eee',
+        borderRadius: 'var(--radius-md)',
+        border: '1px solid var(--border)',
     },
     reviewHeader: {
         display: 'flex',
         justifyContent: 'space-between',
-        marginBottom: '10px',
+        marginBottom: '12px',
     },
-    sidebar: {
+    stickySidebar: {
+        position: 'sticky',
+        top: '100px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '30px',
+        gap: '40px',
     },
     priceCard: {
-        padding: '30px',
+        padding: '35px',
         backgroundColor: 'var(--white)',
         borderRadius: 'var(--radius-lg)',
         boxShadow: 'var(--shadow-lg)',
-        position: 'sticky',
-        top: '100px',
         textAlign: 'center',
+        border: '1px solid var(--border)',
     },
     priceHeader: {
         marginBottom: '20px',
@@ -294,13 +279,12 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: '1.1rem',
         marginBottom: '15px',
         display: 'block',
-        textAlign: 'center',
     },
     guarantee: {
         fontSize: '0.8rem',
         color: 'var(--muted)',
     },
-    related: {
-        marginTop: '40px',
+    relatedSection: {
+        marginTop: '20px',
     }
 };
