@@ -6,8 +6,7 @@ export default function Header() {
         <header style={styles.header}>
             <div className="container" style={styles.container}>
                 <Link href="/" style={styles.logo}>
-                    que<span style={{ fontWeight: 800 }}>aprendo</span>
-                    <span style={styles.logoDetail}>.</span>
+                    que<span style={{ fontWeight: 800 }}>aprendo.com</span>
                 </Link>
 
                 <div style={styles.searchContainer}>

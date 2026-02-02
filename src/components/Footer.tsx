@@ -9,7 +9,7 @@ export default function Footer() {
                 <div style={styles.grid}>
                     <div style={styles.section}>
                         <Link href="/" style={styles.logo}>
-                            que<span style={{ fontWeight: 800 }}>aprendo</span>
+                            que<span style={{ fontWeight: 800 }}>aprendo.com</span>
                         </Link>
                         <p style={styles.tagline}>
                             Conectamos a quienes quieren enseñar con quienes desean aprender. El marketplace educativo de Oaxaca.
