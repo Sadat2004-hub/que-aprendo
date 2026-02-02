@@ -37,8 +37,17 @@ export default function Footer() {
                     <div style={styles.section}>
                         <h4 style={styles.heading}>Contacto</h4>
                         <ul style={styles.list}>
-                            <li style={styles.contactItem}>WhatsApp: +52 656 323 0397</li>
-                            <li style={styles.contactItem}>Email: hola@queaprendo.com</li>
+                            <li>
+                                <a
+                                    href="https://wa.me/526563230397?text=Hola,%20me%20interesa%20obtener%20más%20información%20sobre%20queaprendo.com"
+                                    className="btn"
+                                    style={styles.whatsappBtn}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    💬 WhatsApp Directo
+                                </a>
+                            </li>
                             <li>
                                 <Link href="/unirse" className="btn btn-secondary" style={styles.providerBtn}>
                                     Soy Instructor / Escuela
@@ -105,14 +114,20 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: '0.9rem',
         transition: 'color 0.2s ease',
     },
-    contactItem: {
-        color: '#AAAAAA',
-        fontSize: '0.9rem',
-    },
-    providerBtn: {
-        marginTop: '10px',
+    whatsappBtn: {
+        backgroundColor: '#25D366',
+        color: '#FFFFFF',
         fontSize: '0.85rem',
         padding: '10px 15px',
+        width: '100%',
+        maxWidth: '220px',
+    },
+    providerBtn: {
+        marginTop: '5px',
+        fontSize: '0.85rem',
+        padding: '10px 15px',
+        width: '100%',
+        maxWidth: '220px',
     },
     bottom: {
         borderTop: '1px solid #333333',
