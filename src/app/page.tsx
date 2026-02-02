@@ -4,48 +4,59 @@ import { COURSES, CATEGORIES } from '@/lib/data';
 import Link from 'next/link';
 
 export default function Home() {
-  const featuredCourses = COURSES.slice(0, 4);
+  const featuredCourses = COURSES.slice(0, 6);
 
   return (
-    <div className="hero-gradient">
-      {/* Dynamic Hero Section */}
+    <div className="mesh-gradient">
+      {/* Editorial Hero Section */}
       <section style={styles.hero}>
-        <div className="container" style={styles.heroContainer}>
-          <div className="animate-fade-in">
-            <h1 style={styles.heroTitle}>
-              Encuentra a tu <span style={{ color: 'var(--primary)' }}>Próximo Maestro</span> en Oaxaca
-            </h1>
-            <p style={styles.heroSubtitle}>
-              Cursos presenciales y online impartidos por los mejores expertos de la región. Aprende lo que te apasiona hoy mismo.
+        <div className="container">
+          <div className="animate-reveal" style={styles.heroWrapper}>
+            <div style={styles.heroTag}>Plataforma de Educación Local v1.0</div>
+            <h1>Aprende de <br /> <span style={{ color: 'var(--accent-blue)' }}>Expertos</span> Reales</h1>
+            <p style={styles.heroLead}>
+              Conectamos curiosidad con maestría. La red más exclusiva de talleres presenciales y online en el corazón de Oaxaca.
             </p>
-            <div style={styles.heroSearch}>
+            <div style={styles.searchContainer}>
               <SearchBar prominent={true} />
+            </div>
+            <div style={styles.heroStats}>
+              <div style={styles.statItem}><strong>+12k</strong> Alumnos</div>
+              <div style={styles.statItem}><strong>+150</strong> Maestros</div>
+              <div style={styles.statItem}><strong>4.9/5</strong> Satisfacción</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Categories Modern Grid */}
+      {/* Bento Categories */}
       <section style={styles.section}>
         <div className="container">
-          <h2 style={styles.sectionTitle}>Categorías Populares</h2>
-          <div style={styles.categoryGrid}>
-            {CATEGORIES.map((cat) => (
-              <Link key={cat.id} href={`/oaxaca/${cat.id}`} style={styles.categoryCard} className="glass-card">
-                <span style={styles.catIcon}>{cat.icon}</span>
-                <span style={styles.catName}>{cat.name}</span>
+          <div style={styles.sectionHeading}>
+            <div className="hero-tag" style={{ border: '1px solid #000', padding: '4px 12px', display: 'inline-block', borderRadius: '99px', fontSize: '0.8rem', fontWeight: 700, marginBottom: '16px' }}>EXPLORAR</div>
+            <h2>Disciplinas Maestras</h2>
+          </div>
+          <div className="bento-grid" style={{ marginTop: '48px' }}>
+            {CATEGORIES.map((cat, i) => (
+              <Link key={cat.id} href={`/oaxaca/${cat.id}`} className="bento-card" style={styles.catCard(i)}>
+                <div style={styles.catIcon}>{cat.icon}</div>
+                <h3 style={{ marginTop: 'auto' }}>{cat.name}</h3>
+                <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>Explorar taller →</p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Courses - Premium Look */}
-      <section style={{ ...styles.section, backgroundColor: 'white' }}>
+      {/* Featured Courses */}
+      <section style={styles.section}>
         <div className="container">
-          <div style={styles.sectionHeader}>
-            <h2 style={styles.sectionTitle}>Cursos Destacados</h2>
-            <Link href="/oaxaca" style={styles.viewAll}>Explorar todo →</Link>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '64px' }}>
+            <div>
+              <div className="hero-tag" style={{ border: '1px solid #000', padding: '4px 12px', display: 'inline-block', borderRadius: '99px', fontSize: '0.8rem', fontWeight: 700, marginBottom: '16px' }}>CURADOS</div>
+              <h2>Selección del Mes</h2>
+            </div>
+            <Link href="/oaxaca" className="btn-new btn-outline-new" style={{ padding: '12px 28px' }}>Ver catálogo completo</Link>
           </div>
           <div style={styles.courseGrid}>
             {featuredCourses.map((course) => (
@@ -55,20 +66,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trust & CTA */}
-      <section style={styles.section}>
-        <div className="container">
-          <div style={styles.ctaBox} className="glass-card">
-            <div style={styles.ctaText}>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>¿Eres instructor?</h2>
-              <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '32px' }}>
-                Únete a la mayor red educativa de Oaxaca. Te ayudamos a gestionar tus alumnos y digitalizar tu oferta.
-              </p>
-              <Link href="/unirse" className="btn btn-primary">Registrar mi taller</Link>
+      {/* Join Section - Different Layout */}
+      <section style={{ ...styles.section, background: 'var(--accent-primary)', color: 'white', borderTopRightRadius: '100px', borderBottomLeftRadius: '100px' }}>
+        <div className="container" style={styles.ctaGrid}>
+          <div style={styles.ctaContent}>
+            <h2 style={{ color: 'white' }}>Transforma tu <br /> Conocimiento en <br /> Impacto</h2>
+            <p style={{ fontSize: '1.25rem', opacity: 0.8, marginTop: '24px', maxWidth: '500px' }}>
+              Buscamos maestros, escuelas y artesanos que quieran llevar su enseñanza al siguiente nivel digital.
+            </p>
+            <div style={{ marginTop: '48px', display: 'flex', gap: '20px' }}>
+              <Link href="/unirse" className="btn-new" style={{ background: 'white', color: 'black' }}>Registrarme</Link>
+              <Link href="/como-funciona" className="btn-new" style={{ background: 'transparent', border: '2px solid white', color: 'white' }}>Cómo funciona</Link>
             </div>
-            <div className="hide-on-mobile" style={styles.ctaImage}>
-              <img src="https://images.unsplash.com/photo-1544928147-7972fc535992?auto=format&fit=crop&q=80&w=800" alt="Teacher" style={{ width: '100%', borderRadius: '20px' }} />
-            </div>
+          </div>
+          <div style={styles.ctaVisual}>
+            <div style={styles.abstractCircle}></div>
           </div>
         </div>
       </section>
@@ -76,83 +88,89 @@ export default function Home() {
   );
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
+const styles: { [key: string]: any } = {
   hero: {
-    padding: '100px 0 80px',
+    padding: '240px 0 120px',
     textAlign: 'center',
   },
-  heroContainer: {
-    maxWidth: '900px',
-    margin: '0 auto',
+  heroWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '32px',
   },
-  heroTitle: {
-    fontSize: 'clamp(2.5rem, 8vw, 4.5rem)',
-    lineHeight: '1.1',
-    fontWeight: 800,
-    marginBottom: '24px',
-    color: 'var(--dark-bg)',
+  heroTag: {
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.9rem',
+    fontWeight: 600,
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    opacity: 0.5,
   },
-  heroSubtitle: {
-    fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
+  heroLead: {
+    fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
+    maxWidth: '750px',
     color: 'var(--text-muted)',
-    marginBottom: '48px',
+    fontWeight: 500,
   },
-  heroSearch: {
-    maxWidth: '700px',
-    margin: '0 auto',
+  searchContainer: {
+    width: '100%',
+    maxWidth: '800px',
+    marginTop: '24px',
+  },
+  heroStats: {
+    display: 'flex',
+    gap: '48px',
+    marginTop: '64px',
+    borderTop: '1px solid var(--border-light)',
+    paddingTop: '32px',
+  },
+  statItem: {
+    fontSize: '1rem',
+    opacity: 0.8,
   },
   section: {
-    padding: '100px 0',
+    padding: '120px 0',
   },
-  sectionTitle: {
-    fontSize: '2.2rem',
-    marginBottom: '40px',
-    color: 'var(--dark-bg)',
+  sectionHeading: {
+    textAlign: 'left',
   },
-  sectionHeader: {
+  catCard: (i: number) => ({
+    gridColumn: i % 3 === 0 ? 'span 6' : 'span 3',
+    height: '320px',
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    marginBottom: '40px',
-  },
-  viewAll: {
-    color: 'var(--primary)',
-    fontWeight: 700,
-  },
-  categoryGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-    gap: '24px',
-  },
-  categoryCard: {
-    padding: '40px 20px',
-    textAlign: 'center',
-    cursor: 'pointer',
-    backgroundColor: 'white',
-  },
+    flexDirection: 'column',
+    backgroundColor: i % 2 === 0 ? '#fff' : '#F9F9F9',
+  }),
   catIcon: {
-    fontSize: '3rem',
-    display: 'block',
-    marginBottom: '16px',
-  },
-  catName: {
-    fontSize: '1.1rem',
-    fontWeight: 700,
-    color: 'var(--dark-bg)',
+    fontSize: '4rem',
   },
   courseGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '30px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+    gap: '32px',
   },
-  ctaBox: {
+  ctaGrid: {
     display: 'grid',
-    gridTemplateColumns: '1.2fr 1fr',
-    gap: '60px',
-    padding: '80px',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '80px',
+    padding: '100px 24px',
     alignItems: 'center',
-    backgroundColor: 'white',
   },
-  ctaText: {},
-  ctaImage: {},
+  ctaVisual: {
+    position: 'relative',
+    height: '400px',
+  },
+  abstractCircle: {
+    width: '300px',
+    height: '300px',
+    background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-violet))',
+    borderRadius: '50%',
+    filter: 'blur(100px)',
+    opacity: 0.5,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  }
 };
