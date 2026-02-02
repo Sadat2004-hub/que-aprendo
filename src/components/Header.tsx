@@ -3,17 +3,17 @@ import SearchBar from './SearchBar';
 
 export default function Header() {
     return (
-        <header style={styles.header}>
-            <div className="container" style={styles.container}>
-                <Link href="/" style={styles.logo}>
+        <header style={styles.header} className="header-mobile-reset">
+            <div className="container container-mobile-column" style={styles.container}>
+                <Link href="/" style={styles.logo} className="logo-mobile-center">
                     que<span style={{ fontWeight: 800 }}>aprendo</span><span style={{ color: 'var(--secondary)' }}>.</span><span style={{ fontWeight: 800 }}>com</span>
                 </Link>
 
-                <div style={styles.searchContainer}>
+                <div style={styles.searchContainer} className="search-mobile-full">
                     <SearchBar />
                 </div>
 
-                <nav style={styles.nav}>
+                <nav style={styles.nav} className="nav-mobile-center">
                     <Link href="/unirse" className="btn btn-outline" style={styles.cta}>
                         Soy Instructor/Escuela
                     </Link>
