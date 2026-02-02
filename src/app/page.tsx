@@ -4,44 +4,34 @@ import { COURSES, CATEGORIES } from '@/lib/data';
 import Link from 'next/link';
 
 export default function Home() {
-  const featuredCourses = COURSES.slice(0, 6);
+  const featuredCourses = COURSES.slice(0, 4);
 
   return (
-    <div className="mesh-gradient">
-      {/* Editorial Hero Section */}
+    <div>
+      {/* Hero Section */}
       <section style={styles.hero}>
-        <div className="container">
-          <div className="animate-reveal" style={styles.heroWrapper}>
-            <div style={styles.heroTag}>Plataforma de Educación Local v1.0</div>
-            <h1>Aprende de <br /> <span style={{ color: 'var(--accent-blue)' }}>Expertos</span> Reales</h1>
-            <p style={styles.heroLead}>
-              Conectamos curiosidad con maestría. La red más exclusiva de talleres presenciales y online en el corazón de Oaxaca.
-            </p>
-            <div style={styles.searchContainer}>
-              <SearchBar prominent={true} />
-            </div>
-            <div style={styles.heroStats}>
-              <div style={styles.statItem}><strong>+12k</strong> Alumnos</div>
-              <div style={styles.statItem}><strong>+150</strong> Maestros</div>
-              <div style={styles.statItem}><strong>4.9/5</strong> Satisfacción</div>
-            </div>
+        <div className="container" style={styles.heroContent}>
+          <h1 style={styles.heroTitle}>
+            Descubre tu próxima <span style={{ color: 'var(--secondary)' }}>pasión</span> en Oaxaca
+          </h1>
+          <p style={styles.heroSubtitle}>
+            La plataforma que conecta el talento local con mentes curiosas. Encuentra cursos presenciales y online.
+          </p>
+          <div style={styles.heroSearch}>
+            <SearchBar prominent={true} />
           </div>
         </div>
       </section>
 
-      {/* Bento Categories */}
+      {/* Categories Section */}
       <section style={styles.section}>
         <div className="container">
-          <div style={styles.sectionHeading}>
-            <div className="hero-tag" style={{ border: '1px solid #000', padding: '4px 12px', display: 'inline-block', borderRadius: '99px', fontSize: '0.8rem', fontWeight: 700, marginBottom: '16px' }}>EXPLORAR</div>
-            <h2>Disciplinas Maestras</h2>
-          </div>
-          <div className="bento-grid" style={{ marginTop: '48px' }}>
-            {CATEGORIES.map((cat, i) => (
-              <Link key={cat.id} href={`/oaxaca/${cat.id}`} className="bento-card" style={styles.catCard(i)}>
-                <div style={styles.catIcon}>{cat.icon}</div>
-                <h3 style={{ marginTop: 'auto' }}>{cat.name}</h3>
-                <p style={{ opacity: 0.6, fontSize: '0.9rem' }}>Explorar taller →</p>
+          <h2 style={styles.sectionTitle}>Explora por categorías</h2>
+          <div style={styles.categoryGrid}>
+            {CATEGORIES.map((cat) => (
+              <Link key={cat.id} href={`/oaxaca/${cat.id}`} style={styles.categoryCard}>
+                <span style={styles.categoryIcon}>{cat.icon}</span>
+                <span style={styles.categoryName}>{cat.name}</span>
               </Link>
             ))}
           </div>
@@ -49,14 +39,11 @@ export default function Home() {
       </section>
 
       {/* Featured Courses */}
-      <section style={styles.section}>
+      <section style={{ ...styles.section, backgroundColor: 'var(--white)' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '64px' }}>
-            <div>
-              <div className="hero-tag" style={{ border: '1px solid #000', padding: '4px 12px', display: 'inline-block', borderRadius: '99px', fontSize: '0.8rem', fontWeight: 700, marginBottom: '16px' }}>CURADOS</div>
-              <h2>Selección del Mes</h2>
-            </div>
-            <Link href="/oaxaca" className="btn-new btn-outline-new" style={{ padding: '12px 28px' }}>Ver catálogo completo</Link>
+          <div style={styles.sectionHeader}>
+            <h2 style={styles.sectionTitle}>Cursos destacados</h2>
+            <Link href="/oaxaca" style={styles.viewAll}>Ver todos los cursos →</Link>
           </div>
           <div style={styles.courseGrid}>
             {featuredCourses.map((course) => (
@@ -66,21 +53,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Join Section - Different Layout */}
-      <section style={{ ...styles.section, background: 'var(--accent-primary)', color: 'white', borderTopRightRadius: '100px', borderBottomLeftRadius: '100px' }}>
-        <div className="container" style={styles.ctaGrid}>
-          <div style={styles.ctaContent}>
-            <h2 style={{ color: 'white' }}>Transforma tu <br /> Conocimiento en <br /> Impacto</h2>
-            <p style={{ fontSize: '1.25rem', opacity: 0.8, marginTop: '24px', maxWidth: '500px' }}>
-              Buscamos maestros, escuelas y artesanos que quieran llevar su enseñanza al siguiente nivel digital.
+      {/* Trust Section */}
+      <section style={styles.section}>
+        <div className="container" style={styles.trustContent}>
+          <div style={styles.trustText}>
+            <h2 style={{ ...styles.sectionTitle, textAlign: 'left' }}>¿Eres instructor o tienes una escuela?</h2>
+            <p style={styles.trustDescription}>
+              Únete a la comunidad de aprendizaje más grande de Oaxaca. Digitaliza tu oferta educativa y llega a más alumnos de forma directa.
             </p>
-            <div style={{ marginTop: '48px', display: 'flex', gap: '20px' }}>
-              <Link href="/unirse" className="btn-new" style={{ background: 'white', color: 'black' }}>Registrarme</Link>
-              <Link href="/como-funciona" className="btn-new" style={{ background: 'transparent', border: '2px solid white', color: 'white' }}>Cómo funciona</Link>
+            <div style={{ display: 'flex', gap: '15px' }}>
+              <Link href="/unirse" className="btn btn-primary">Registrar mi escuela</Link>
+              <Link href="/como-funciona" className="btn btn-outline">¿Cómo funciona?</Link>
             </div>
           </div>
-          <div style={styles.ctaVisual}>
-            <div style={styles.abstractCircle}></div>
+          <div style={styles.trustImage}>
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800" alt="Teaching" style={{ width: '100%', borderRadius: 'var(--radius-lg)' }} />
           </div>
         </div>
       </section>
@@ -88,89 +75,102 @@ export default function Home() {
   );
 }
 
-const styles: { [key: string]: any } = {
+const styles: { [key: string]: React.CSSProperties } = {
   hero: {
-    padding: '240px 0 120px',
+    padding: '100px 0 80px',
+    backgroundColor: 'var(--light-gray)',
+    backgroundImage: 'radial-gradient(circle at 10% 20%, rgba(0, 71, 171, 0.03) 0%, rgba(0, 0, 0, 0) 90%)',
     textAlign: 'center',
   },
-  heroWrapper: {
+  heroContent: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '32px',
+    gap: '24px',
   },
-  heroTag: {
-    fontFamily: 'var(--font-mono)',
-    fontSize: '0.9rem',
-    fontWeight: 600,
-    letterSpacing: '0.1em',
-    textTransform: 'uppercase',
-    opacity: 0.5,
-  },
-  heroLead: {
-    fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
-    maxWidth: '750px',
-    color: 'var(--text-muted)',
-    fontWeight: 500,
-  },
-  searchContainer: {
-    width: '100%',
+  heroTitle: {
+    fontSize: '3.5rem',
     maxWidth: '800px',
-    marginTop: '24px',
+    color: 'var(--primary)',
+    lineHeight: '1.1',
   },
-  heroStats: {
-    display: 'flex',
-    gap: '48px',
-    marginTop: '64px',
-    borderTop: '1px solid var(--border-light)',
-    paddingTop: '32px',
+  heroSubtitle: {
+    fontSize: '1.25rem',
+    color: 'var(--muted)',
+    maxWidth: '600px',
   },
-  statItem: {
-    fontSize: '1rem',
-    opacity: 0.8,
+  heroSearch: {
+    width: '100%',
+    maxWidth: '700px',
+    marginTop: '20px',
   },
   section: {
-    padding: '120px 0',
+    padding: '80px 0',
   },
-  sectionHeading: {
-    textAlign: 'left',
+  sectionTitle: {
+    fontSize: '2rem',
+    marginBottom: '2rem',
+    textAlign: 'center',
   },
-  catCard: (i: number) => ({
-    gridColumn: i % 3 === 0 ? 'span 6' : 'span 3',
-    height: '320px',
+  sectionHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    marginBottom: '2rem',
+  },
+  viewAll: {
+    color: 'var(--primary)',
+    fontWeight: 600,
+    fontSize: '0.9rem',
+  },
+  categoryGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+    gap: '20px',
+  },
+  categoryCard: {
+    backgroundColor: 'var(--white)',
+    padding: '30px 20px',
+    borderRadius: 'var(--radius-lg)',
+    textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: i % 2 === 0 ? '#fff' : '#F9F9F9',
-  }),
-  catIcon: {
-    fontSize: '4rem',
+    alignItems: 'center',
+    gap: '12px',
+    boxShadow: 'var(--shadow-sm)',
+    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+    border: '1px solid transparent',
+  },
+  categoryIcon: {
+    fontSize: '2.5rem',
+  },
+  categoryName: {
+    fontWeight: 600,
+    fontSize: '1rem',
   },
   courseGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-    gap: '32px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '30px',
   },
-  ctaGrid: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '80px',
-    padding: '100px 24px',
+  trustContent: {
+    display: 'flex',
     alignItems: 'center',
+    gap: '60px',
+    backgroundColor: '#EEF2FF',
+    padding: '60px',
+    borderRadius: 'var(--radius-lg)',
   },
-  ctaVisual: {
-    position: 'relative',
-    height: '400px',
+  trustText: {
+    flex: 1,
   },
-  abstractCircle: {
-    width: '300px',
-    height: '300px',
-    background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-violet))',
-    borderRadius: '50%',
-    filter: 'blur(100px)',
-    opacity: 0.5,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+  trustDescription: {
+    fontSize: '1.1rem',
+    color: 'var(--muted)',
+    marginBottom: '30px',
+    lineHeight: '1.6',
+  },
+  trustImage: {
+    flex: 1,
   }
 };
