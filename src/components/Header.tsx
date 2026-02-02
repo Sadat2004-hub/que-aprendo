@@ -6,7 +6,7 @@ export default function Header() {
         <header style={styles.header}>
             <div className="container" style={styles.container}>
                 <Link href="/" style={styles.logo}>
-                    que<span style={{ fontWeight: 800 }}>aprendo.com</span>
+                    que<span style={{ fontWeight: 800 }}>aprendo</span><span style={{ color: 'var(--secondary)' }}>.</span><span style={{ fontWeight: 800 }}>com</span>
                 </Link>
 
                 <div style={styles.searchContainer}>
@@ -48,13 +48,6 @@ const styles: { [key: string]: React.CSSProperties } = {
         letterSpacing: '-0.5px',
         display: 'flex',
         alignItems: 'center',
-    },
-    logoDetail: {
-        color: 'var(--secondary)',
-        marginLeft: '1px',
-        fontSize: '2rem',
-        lineHeight: 0,
-        marginBottom: '8px',
     },
     searchContainer: {
         flex: 1,
