@@ -1,14 +1,14 @@
 export default function UnirsePage() {
     return (
-        <div style={styles.container}>
+        <div style={styles.container} className="page-padding-mobile">
             <div className="container" style={styles.wrapper}>
-                <div style={styles.card}>
-                    <h1 style={styles.title}>Lleva tu enseñanza al siguiente nivel</h1>
+                <div style={styles.card} className="card-padding-mobile">
+                    <h1 style={styles.title} className="title-mobile">Lleva tu enseñanza al siguiente nivel</h1>
                     <p style={styles.subtitle}>
                         En queaprendo.com te ayudamos a digitalizar tu oferta educativa y conectar con miles de estudiantes en Oaxaca.
                     </p>
 
-                    <div style={styles.benefits}>
+                    <div style={styles.benefits} className="benefits-mobile-stack">
                         <div style={styles.benefit}>
                             <span style={styles.icon}>🎯</span>
                             <h3>Visibilidad Local</h3>
@@ -62,6 +62,7 @@ const styles: { [key: string]: React.CSSProperties } = {
         fontSize: '3rem',
         color: 'var(--primary)',
         marginBottom: '20px',
+        lineHeight: '1.1',
     },
     subtitle: {
         fontSize: '1.2rem',

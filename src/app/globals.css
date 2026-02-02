@@ -157,7 +157,7 @@ ul {
   display: none;
 }
 
-/* Header Responsive Utilities */
+/* Header & Shared Responsive Utilities */
 @media (max-width: 900px) {
   .detail-grid {
     flex-direction: column;
@@ -201,6 +201,25 @@ ul {
   .nav-mobile-center {
     width: 100% !important;
     justify-content: center !important;
+  }
+
+  /* Unirse Page Mobile Fixes */
+  .page-padding-mobile {
+    padding: 40px 0 !important;
+  }
+
+  .card-padding-mobile {
+    padding: 30px !important;
+  }
+
+  .title-mobile {
+    fontSize: 2rem !important;
+  }
+
+  .benefits-mobile-stack {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+    text-align: center !important;
   }
 }
 
