@@ -1,28 +1,19 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import WhatsAppButton from "@/components/WhatsAppButton";
-
-export const metadata: Metadata = {
-  title: "queaprendo | Marketplace Educativo en Oaxaca",
-  description: "Encuentra los mejores cursos, talleres y escuelas en Oaxaca. Aprende de expertos locales en gastronomía, arte, tecnología y más.",
-  keywords: "cursos oaxaca, talleres oaxaca, aprender hoy, educación oaxaca, escuelas oaxaca",
+export const metadata = {
+    title: "queaprendo | Marketplace Educativo en Oaxaca",
+    description: "Encuentra los mejores cursos, talleres y escuelas en Oaxaca.",
+    icons: {
+        icon: '/favicon.ico',
+    },
 };
 
 export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="es">
-      <body>
-        <Header />
-        <main>{children}</main>
-        <WhatsAppButton />
-        <Footer />
-      </body>
-    </html>
-  );
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    return (
+        <html lang="es">
+            <body style={{ margin: 0, padding: 0 }}>{children}</body>
+        </html>
+    );
 }
