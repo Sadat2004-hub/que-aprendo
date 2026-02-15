@@ -1,12 +1,12 @@
 'use client'
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { urlForImage } from '@/sanity/lib/image'
 import { MapPin, Star, GraduationCap } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export default function InstitutionCard({ item }: { item: any }) {
-    const isInstitution = item._type === 'institucion'
 
     // Calculate display rating
     const rating = item.rating || 4.8

@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import SearchBar from '@/components/SearchBar'
 import InstitutionCard from '@/components/InstitutionCard'
 import { client } from '@/sanity/lib/client'
 import { INSTITUCIONES_QUERY } from '@/sanity/lib/queries'
-import { GraduationCap, BookOpen, Laptop, Globe, ChefHat, Palette, Hammer, Baby, TrendingUp, Award } from 'lucide-react'
+import { GraduationCap, BookOpen, Laptop, Globe, ChefHat, Palette, Hammer, Award } from 'lucide-react'
 
 const UI_CATEGORIES = [
   { id: 'posgrados', name: 'Doctorados y Maestrías', icon: <GraduationCap size={32} />, color: '#4F46E5' },
@@ -17,8 +19,8 @@ const UI_CATEGORIES = [
 ]
 
 export default async function Home() {
-  const instituciones = await client.fetch(INSTITUCIONES_QUERY)
-  const featured = instituciones.slice(0, 4)
+  const instituciones = await client.fetch(INSTITUCIONES_QUERY);
+  const featured = instituciones.slice(0, 4);
 
   return (
     <div style={styles.wrapper}>

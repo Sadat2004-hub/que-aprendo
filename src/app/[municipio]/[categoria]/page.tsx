@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { client } from '@/sanity/lib/client'
 import { INSTITUCIONES_BY_CITY_AND_CATEGORY_QUERY } from '@/sanity/lib/queries'
 import InstitutionCard from '@/components/InstitutionCard'
-import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 
 interface Props {

@@ -18,7 +18,7 @@ function SearchResults() {
 
     return (
         <div className="container" style={{ padding: '60px 0' }}>
-            <h1 style={{ marginBottom: '10px' }}>Resultados para: "{query}"</h1>
+            <h1 style={{ marginBottom: '10px' }}>Resultados para: &quot;{query}&quot;</h1>
             <p style={{ color: 'var(--muted)', marginBottom: '40px' }}>
                 Encontramos {results.length} curso{results.length !== 1 ? 's' : ''} que coinciden con tu búsqueda.
             </p>
@@ -32,7 +32,7 @@ function SearchResults() {
             ) : (
                 <div style={{ textAlign: 'center', padding: '60px', backgroundColor: '#fff', borderRadius: '12px' }}>
                     <h2>No hay resultados.</h2>
-                    <p>Prueba buscando con otros términos como "Cocina", "Inglés" o "Diseño".</p>
+                    <p>Prueba buscando con otros términos como &quot;Cocina&quot;, &quot;Inglés&quot; o &quot;Diseño&quot;.</p>
                 </div>
             )}
         </div>

@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @next/next/no-img-element */
 import { client } from '@/sanity/lib/client'
 import { INSTITUCION_BY_SLUG_QUERY, INSTITUCIONES_BY_CITY_QUERY } from '@/sanity/lib/queries'
 import InstitutionCard from '@/components/InstitutionCard'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { urlForImage } from '@/sanity/lib/image'
-import { MapPin, Phone, Clock, Star, GraduationCap, ChevronRight, Globe, Share2 } from 'lucide-react'
+import { MapPin, Phone, Clock, Star, GraduationCap, ChevronRight, Share2 } from 'lucide-react'
 import Link from 'next/link'
 
 interface Props {
