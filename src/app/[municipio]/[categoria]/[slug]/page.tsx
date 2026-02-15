@@ -42,24 +42,6 @@ export default async function CourseDetailPage({ params }: Props) {
 
     const relatedCourses = COURSES.filter(c => c.category === course.category && c.id !== course.id).slice(0, 3);
 
-    const PriceAction = () => (
-        <div style={styles.priceCard}>
-            <div style={styles.priceHeader}>
-                <span style={styles.price}>${course.price.toLocaleString()}</span>
-                <span style={styles.currency}>{course.currency}</span>
-            </div>
-            <a
-                href={`https://wa.me/526563230397?text=Hola,%20me%20interesa%20inscribirme%20al%20curso%20${encodeURIComponent(course.title)}`}
-                className="btn btn-secondary"
-                style={styles.buyBtn}
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                Inscribirse ahora
-            </a>
-            <p style={styles.guarantee}>Garantía de satisfacción queaprendo</p>
-        </div>
-    );
 
     return (
         <div style={styles.pageContainer}>
@@ -85,7 +67,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                         {/* Price/Action - ONLY VISIBLE ON MOBILE IN THIS POSITION */}
                         <div className="show-mobile" style={{ marginBottom: '30px' }}>
-                            <PriceAction />
+                            <PriceAction course={course} />
                         </div>
 
                         <div style={styles.details}>
@@ -133,7 +115,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     {/* Sidebar Area - HIDDEN ON MOBILE */}
                     <aside className="detail-sidebar hide-mobile">
                         <div style={styles.stickySidebar}>
-                            <PriceAction />
+                            <PriceAction course={course} />
 
                             <div style={styles.relatedSection}>
                                 <h3 style={{ marginBottom: '20px' }}>Talleres recomendados</h3>
@@ -159,6 +141,27 @@ export default async function CourseDetailPage({ params }: Props) {
             </div>
 
             <WhatsAppButton message={`Hola, me interesa el curso "${course.title}". ¿Me podrían dar más informes?`} />
+        </div>
+    );
+}
+
+function PriceAction({ course }: { course: any }) {
+    return (
+        <div style={styles.priceCard}>
+            <div style={styles.priceHeader}>
+                <span style={styles.price}>${course.price.toLocaleString()}</span>
+                <span style={styles.currency}>{course.currency}</span>
+            </div>
+            <a
+                href={`https://wa.me/526563230397?text=Hola,%20me%20interesa%20inscribirme%20al%20curso%20${encodeURIComponent(course.title)}`}
+                className="btn btn-secondary"
+                style={styles.buyBtn}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Inscribirse ahora
+            </a>
+            <p style={styles.guarantee}>Garantía de satisfacción queaprendo</p>
         </div>
     );
 }
