@@ -1,176 +1,240 @@
-import SearchBar from '@/components/SearchBar';
-import CourseCard from '@/components/CourseCard';
-import { COURSES, CATEGORIES } from '@/lib/data';
-import Link from 'next/link';
+import Link from 'next/link'
+import SearchBar from '@/components/SearchBar'
+import InstitutionCard from '@/components/InstitutionCard'
+import { client } from '@/sanity/lib/client'
+import { INSTITUCIONES_QUERY } from '@/sanity/lib/queries'
+import { GraduationCap, BookOpen, Laptop, Globe, ChefHat, Palette, Hammer, Baby, TrendingUp, Award } from 'lucide-react'
 
-export default function Home() {
-  const featuredCourses = COURSES.slice(0, 4);
+const UI_CATEGORIES = [
+  { id: 'posgrados', name: 'Doctorados y Maestrías', icon: <GraduationCap size={32} />, color: '#4F46E5' },
+  { id: 'diplomados', name: 'Diplomados', icon: <Award size={32} />, color: '#7C3AED' },
+  { id: 'universidades', name: 'Universidades', icon: <BookOpen size={32} />, color: '#2563EB' },
+  { id: 'tecnologia', name: 'Tecnología', icon: <Laptop size={32} />, color: '#0891B2' },
+  { id: 'idiomas', name: 'Idiomas', icon: <Globe size={32} />, color: '#059669' },
+  { id: 'gastronomia', name: 'Gastronomía', icon: <ChefHat size={32} />, color: '#DC2626' },
+  { id: 'arte', name: 'Arte y Música', icon: <Palette size={32} />, color: '#DB2777' },
+  { id: 'oficios', name: 'Oficios', icon: <Hammer size={32} />, color: '#D97706' },
+]
+
+export default async function Home() {
+  const instituciones = await client.fetch(INSTITUCIONES_QUERY)
+  const featured = instituciones.slice(0, 4)
 
   return (
-    <div>
+    <div style={styles.wrapper}>
       {/* Hero Section */}
       <section style={styles.hero}>
         <div className="container" style={styles.heroContent}>
-          <h1 style={styles.heroTitle}>
-            Descubre tu próxima <span style={{ color: 'var(--secondary)' }}>pasión</span> en Oaxaca
-          </h1>
-          <p style={styles.heroSubtitle}>
-            La plataforma que conecta el talento local con mentes curiosas. Encuentra cursos presenciales y online.
-          </p>
-          <div style={styles.heroSearch}>
-            <SearchBar prominent={true} />
+          <div style={styles.heroText}>
+            <h1 style={styles.heroTitle}>
+              Tu futuro empieza con lo que <span style={{ color: 'var(--secondary)' }}>aprendes</span> hoy.
+            </h1>
+            <p style={styles.heroSubtitle}>
+              Encuentra la mejor oferta educativa en Oaxaca: desde cursos técnicos hasta doctorados.
+            </p>
+            <div style={styles.searchWrapper}>
+              <SearchBar prominent={true} />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Categories Section */}
+      {/* Premium Category Grid */}
       <section style={styles.section}>
         <div className="container">
-          <h2 style={styles.sectionTitle}>Explora por categorías</h2>
+          <div style={styles.sectionHeader}>
+            <h2 style={styles.sectionTitle}>Explora por nivel educativo</h2>
+            <p style={styles.sectionSubtitle}>Selecciona tu área de interés para encontrar instituciones</p>
+          </div>
           <div style={styles.categoryGrid}>
-            {CATEGORIES.map((cat) => (
-              <Link key={cat.id} href={`/oaxaca/${cat.id}`} style={styles.categoryCard}>
-                <span style={styles.categoryIcon}>{cat.icon}</span>
+            {UI_CATEGORIES.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/oaxaca/${cat.id}`}
+                style={{ ...styles.categoryCard, borderTop: `4px solid ${cat.color}` }}
+              >
+                <div style={{ ...styles.categoryIcon, color: cat.color }}>
+                  {cat.icon}
+                </div>
                 <span style={styles.categoryName}>{cat.name}</span>
+                <span style={styles.categoryLink}>Explorar →</span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Courses */}
-      <section style={{ ...styles.section, backgroundColor: 'var(--white)' }}>
-        <div className="container">
-          <div style={styles.sectionHeader}>
-            <h2 style={styles.sectionTitle}>Cursos destacados</h2>
-            <Link href="/oaxaca" style={styles.viewAll}>Ver todos los cursos →</Link>
-          </div>
-          <div style={styles.courseGrid}>
-            {featuredCourses.map((course) => (
-              <CourseCard key={course.id} course={course} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Section */}
-      <section style={styles.section}>
-        <div className="container" style={styles.trustContent}>
-          <div style={styles.trustText}>
-            <h2 style={{ ...styles.sectionTitle, textAlign: 'left' }}>¿Eres instructor o tienes una escuela?</h2>
-            <p style={styles.trustDescription}>
-              Únete a la comunidad de aprendizaje más grande de Oaxaca. Digitaliza tu oferta educativa y llega a más alumnos de forma directa.
-            </p>
-            <div style={{ display: 'flex', gap: '15px' }}>
-              <Link href="/unirse" className="btn btn-primary">Registrar mi escuela</Link>
-              <Link href="/como-funciona" className="btn btn-outline">¿Cómo funciona?</Link>
+      {/* Featured Section */}
+      {featured.length > 0 && (
+        <section style={{ ...styles.section, backgroundColor: 'white' }}>
+          <div className="container">
+            <div style={styles.sectionHeader}>
+              <h2 style={styles.sectionTitle}>Instituciones Destacadas</h2>
+              <Link href="/oaxaca" style={styles.viewAll}>Ver todo el directorio →</Link>
+            </div>
+            <div style={styles.grid}>
+              {featured.map((inst: any) => (
+                <InstitutionCard key={inst._id} item={inst} />
+              ))}
             </div>
           </div>
-          <div style={styles.trustImage}>
-            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=800" alt="Teaching" style={{ width: '100%', borderRadius: 'var(--radius-lg)' }} />
+        </section>
+      )}
+
+      {/* Growth Section */}
+      <section style={styles.growthSection}>
+        <div className="container" style={styles.growthContent}>
+          <div style={styles.growthText}>
+            <h2 style={styles.growthTitle}>¿Deseas registrar tu institución?</h2>
+            <p style={styles.growthSubtitle}>
+              Únete a la mayor red educativa de Oaxaca y llega a miles de personas buscando superarse profesionalmente.
+            </p>
+            <Link href="/unirse" className="btn btn-primary" style={styles.growthBtn}>
+              Registrar Institución
+            </Link>
+          </div>
+          <div style={styles.growthImage}>
+            <img
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=800"
+              alt="Education"
+              style={{ width: '100%', borderRadius: 'var(--radius-lg)' }}
+            />
           </div>
         </div>
       </section>
     </div>
-  );
+  )
 }
 
 const styles: { [key: string]: React.CSSProperties } = {
-  hero: {
-    padding: '100px 0 80px',
+  wrapper: {
     backgroundColor: 'var(--light-gray)',
-    backgroundImage: 'radial-gradient(circle at 10% 20%, rgba(0, 71, 171, 0.03) 0%, rgba(0, 0, 0, 0) 90%)',
+  },
+  hero: {
+    padding: '120px 0 100px',
+    background: 'linear-gradient(135deg, #0047AB 0%, #002D6B 100%)',
+    color: 'white',
     textAlign: 'center',
+    position: 'relative',
+    overflow: 'hidden',
   },
   heroContent: {
+    position: 'relative',
+    zIndex: 2,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '24px',
+  },
+  heroText: {
+    maxWidth: '850px',
   },
   heroTitle: {
-    fontSize: '3.5rem',
-    maxWidth: '800px',
-    color: 'var(--primary)',
-    lineHeight: '1.1',
+    fontSize: '4rem',
+    fontWeight: 800,
+    marginBottom: '24px',
+    lineHeight: 1.1,
   },
   heroSubtitle: {
-    fontSize: '1.25rem',
-    color: 'var(--muted)',
-    maxWidth: '600px',
+    fontSize: '1.4rem',
+    opacity: 0.9,
+    marginBottom: '40px',
+    fontWeight: 400,
   },
-  heroSearch: {
+  searchWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
     width: '100%',
-    maxWidth: '700px',
-    marginTop: '20px',
   },
   section: {
-    padding: '80px 0',
-  },
-  sectionTitle: {
-    fontSize: '2rem',
-    marginBottom: '2rem',
-    textAlign: 'center',
+    padding: '100px 0',
   },
   sectionHeader: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'baseline',
-    marginBottom: '2rem',
+    textAlign: 'center',
+    marginBottom: '60px',
   },
-  viewAll: {
+  sectionTitle: {
+    fontSize: '2.5rem',
+    fontWeight: 800,
     color: 'var(--primary)',
-    fontWeight: 600,
-    fontSize: '0.9rem',
+    marginBottom: '12px',
+  },
+  sectionSubtitle: {
+    fontSize: '1.1rem',
+    color: 'var(--muted)',
   },
   categoryGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-    gap: '20px',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
+    gap: '24px',
   },
   categoryCard: {
-    backgroundColor: 'var(--white)',
-    padding: '30px 20px',
+    backgroundColor: 'white',
+    padding: '40px 30px',
     borderRadius: 'var(--radius-lg)',
-    textAlign: 'center',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: '12px',
-    boxShadow: 'var(--shadow-sm)',
-    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-    border: '1px solid transparent',
+    textAlign: 'center',
+    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+    transition: 'all 0.3s ease',
+    textDecoration: 'none',
   },
   categoryIcon: {
-    fontSize: '2.5rem',
+    marginBottom: '20px',
   },
   categoryName: {
-    fontWeight: 600,
-    fontSize: '1rem',
+    fontSize: '1.25rem',
+    fontWeight: 700,
+    color: 'var(--foreground)',
+    marginBottom: '10px',
   },
-  courseGrid: {
+  categoryLink: {
+    fontSize: '0.9rem',
+    fontWeight: 600,
+    color: 'var(--primary)',
+    marginTop: '10px',
+  },
+  grid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
     gap: '30px',
   },
-  trustContent: {
+  viewAll: {
+    color: 'var(--secondary)',
+    fontWeight: 700,
+    fontSize: '1rem',
+  },
+  growthSection: {
+    padding: '100px 0',
+    backgroundColor: '#EEF2FF',
+  },
+  growthContent: {
     display: 'flex',
     alignItems: 'center',
-    gap: '60px',
-    backgroundColor: '#EEF2FF',
-    padding: '60px',
-    borderRadius: 'var(--radius-lg)',
+    gap: '80px',
+    flexWrap: 'wrap',
   },
-  trustText: {
+  growthText: {
     flex: 1,
+    minWidth: '300px',
   },
-  trustDescription: {
-    fontSize: '1.1rem',
+  growthTitle: {
+    fontSize: '2.5rem',
+    color: 'var(--primary)',
+    marginBottom: '24px',
+  },
+  growthSubtitle: {
+    fontSize: '1.2rem',
     color: 'var(--muted)',
-    marginBottom: '30px',
-    lineHeight: '1.6',
+    lineHeight: 1.6,
+    marginBottom: '32px',
   },
-  trustImage: {
+  growthBtn: {
+    padding: '15px 35px',
+    fontSize: '1.1rem',
+  },
+  growthImage: {
     flex: 1,
+    minWidth: '300px',
   }
-};
+}
