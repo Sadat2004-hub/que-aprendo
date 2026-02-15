@@ -2,10 +2,17 @@
 
 import { MessageCircle } from 'lucide-react'
 
-export default function WhatsAppButton() {
+interface WhatsAppButtonProps {
+    message?: string;
+}
+
+export default function WhatsAppButton({ message }: WhatsAppButtonProps) {
+    const encodedMessage = message ? encodeURIComponent(message) : '';
+    const whatsappUrl = `https://wa.me/529511999553${encodedMessage ? `?text=${encodedMessage}` : ''}`;
+
     return (
         <a
-            href="https://wa.me/529511999553"
+            href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
             style={styles.button}
