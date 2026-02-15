@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import SearchBar from './SearchBar';
+import { School } from 'lucide-react';
 
 export default function Header() {
     return (
@@ -9,13 +9,10 @@ export default function Header() {
                     que<span style={{ fontWeight: 800 }}>aprendo</span><span style={{ color: 'var(--secondary)' }}>.</span><span style={{ fontWeight: 800 }}>com</span>
                 </Link>
 
-                <div style={styles.searchContainer} className="search-mobile-full">
-                    <SearchBar />
-                </div>
-
                 <nav style={styles.nav} className="nav-mobile-center">
-                    <Link href="/unirse" className="btn btn-outline" style={styles.cta}>
-                        Soy Instructor/Escuela
+                    <Link href="/unirse" style={styles.cta}>
+                        <School size={20} strokeWidth={2.5} />
+                        <span>Soy Instructor / Escuela</span>
                     </Link>
                 </nav>
             </div>
@@ -39,25 +36,31 @@ const styles: { [key: string]: React.CSSProperties } = {
         alignItems: 'center',
         justifyContent: 'space-between',
         width: '100%',
-        gap: '2rem',
     },
     logo: {
-        fontSize: '1.5rem',
+        fontSize: '1.8rem',
         color: 'var(--primary)',
         fontWeight: 600,
         letterSpacing: '-0.5px',
         display: 'flex',
         alignItems: 'center',
     },
-    searchContainer: {
-        flex: 1,
-        maxWidth: '600px',
-    },
     nav: {
         display: 'flex',
         alignItems: 'center',
     },
     cta: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: '10px',
+        backgroundColor: 'var(--secondary)',
+        color: 'white',
+        padding: '12px 28px',
+        borderRadius: '50px',
+        fontWeight: 700,
+        fontSize: '1rem',
+        boxShadow: '0 4px 14px 0 rgba(204, 85, 0, 0.35)',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
         whiteSpace: 'nowrap',
     }
 };
