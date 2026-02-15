@@ -16,15 +16,6 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    <div style={styles.section}>
-                        <h4 style={styles.heading}>Explorar</h4>
-                        <ul style={styles.list}>
-                            <li><Link href="/oaxaca" style={styles.link}>Oaxaca de Juárez</Link></li>
-                            <li><Link href="/oaxaca/gastronomia" style={styles.link}>Gastronomía</Link></li>
-                            <li><Link href="/oaxaca/arte" style={styles.link}>Arte y Cultura</Link></li>
-                            <li><Link href="/oaxaca/tecnologia" style={styles.link}>Tecnología</Link></li>
-                        </ul>
-                    </div>
 
                     <div style={styles.section}>
                         <h4 style={styles.heading}>Legales</h4>
